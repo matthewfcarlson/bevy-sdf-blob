@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SDF Mesh Approximation</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: system-ui, -apple-system, sans-serif;
+        background: #1a1a1a;
+        color: #fff;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+      header {
+        padding: 1rem;
+        background: #2a2a2a;
+        border-bottom: 1px solid #333;
+      }
+      h1 {
+        font-size: 1.25rem;
+        font-weight: 500;
+      }
+      main {
+        flex: 1;
+        display: flex;
+        gap: 1rem;
+        padding: 1rem;
+      }
+      #canvas-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #111;
+        border-radius: 8px;
+        overflow: hidden;
+      }
+      canvas {
+        max-width: 100%;
+        max-height: 100%;
+      }
+      #controls {
+        width: 280px;
+        background: #2a2a2a;
+        border-radius: 8px;
+        padding: 1rem;
+      }
+      #controls h2 {
+        font-size: 0.875rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        color: #888;
+      }
+      .control-group {
+        margin-bottom: 1rem;
+      }
+      .control-group label {
+        display: block;
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+      }
+      input[type="file"] {
+        width: 100%;
+        padding: 0.5rem;
+        background: #333;
+        border: 1px solid #444;
+        border-radius: 4px;
+        color: #fff;
+        cursor: pointer;
+      }
+      button {
+        width: 100%;
+        padding: 0.75rem;
+        background: #4a9eff;
+        border: none;
+        border-radius: 4px;
+        color: #fff;
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+      button:hover {
+        background: #3a8eef;
+      }
+      button:disabled {
+        background: #555;
+        cursor: not-allowed;
+      }
+      #status {
+        margin-top: 1rem;
+        padding: 0.75rem;
+        background: #333;
+        border-radius: 4px;
+        font-size: 0.75rem;
+        font-family: monospace;
+        color: #aaa;
+      }
+      #error {
+        color: #ff6b6b;
+        background: #2a1a1a;
+        padding: 1rem;
+        border-radius: 8px;
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>SDF Mesh Approximation</h1>
+    </header>
+    <main>
+      <div id="canvas-container">
+        <canvas id="canvas" width="512" height="512"></canvas>
+      </div>
+      <div id="controls">
+        <h2>Input</h2>
+        <div class="control-group">
+          <label for="mesh-file">Load Mesh (.obj)</label>
+          <input type="file" id="mesh-file" accept=".obj" />
+        </div>
+        <div class="control-group">
+          <label for="resolution">Resolution</label>
+          <select id="resolution">
+            <option value="32">32³</option>
+            <option value="64" selected>64³</option>
+            <option value="128">128³</option>
+          </select>
+        </div>
+        <button id="compute-btn" disabled>Compute Distance Field</button>
+        <div id="status">Initializing WebGPU...</div>
+        <div id="error"></div>
+      </div>
+    </main>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
